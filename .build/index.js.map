@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["../index.ts"],
-  "sourcesContent": ["import Koa from \"koa\";\nimport Router, {RouterContext} from \"koa-router\";\nimport logger from \"koa-logger\";\nimport json from \"koa-json\";\nconst app: Koa = new Koa();\nconst router: Router = new Router();\nconst welcomeAPI = async (ctx: RouterContext, next: any) => {\n ctx.body = {\n message: \"Welcome to the blog API!\"\n };\n await next();\n}\nrouter.get('/api/v1', welcomeAPI);\napp.use(logger());\napp.use(json());\napp.use(router.routes());\napp.listen(10888);\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;;;AAAA,iBAAgB;AAChB,wBAAoC;AACpC,wBAAmB;AACnB,sBAAiB;AACjB,MAAM,MAAW,IAAI,WAAAA,QAAI;AACzB,MAAM,SAAiB,IAAI,kBAAAC,QAAO;AAClC,MAAM,aAAa,OAAO,KAAoB,SAAc;AAC3D,MAAI,OAAO;AAAA,IACX,SAAS;AAAA,EACT;AACA,QAAM,KAAK;AACZ;AACA,OAAO,IAAI,WAAW,UAAU;AAChC,IAAI,QAAI,kBAAAC,SAAO,CAAC;AAChB,IAAI,QAAI,gBAAAC,SAAK,CAAC;AACd,IAAI,IAAI,OAAO,OAAO,CAAC;AACvB,IAAI,OAAO,KAAK;",
+  "sourcesContent": ["import Koa from \"koa\";\nimport Router, {RouterContext} from \"koa-router\";\nimport logger from \"koa-logger\";\nimport json from \"koa-json\";\n\nconst app: Koa = new Koa();\nconst router: Router = new Router();\n\nconst welcomeAPI = async (ctx: RouterContext, next: any) => {\n ctx.body = {\n message: \"Welcome to the blog API!\"\n };\n await next();\n}\n\nrouter.get('/api/v1', welcomeAPI);\n\napp.use(logger());\napp.use(json());\napp.use(router.routes());\napp.listen(10888);\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;AAAA,iBAAgB;AAChB,wBAAoC;AACpC,wBAAmB;AACnB,sBAAiB;AAEjB,MAAM,MAAW,IAAI,WAAAA,QAAI;AACzB,MAAM,SAAiB,IAAI,kBAAAC,QAAO;AAElC,MAAM,aAAa,OAAO,KAAoB,SAAc;AAC3D,MAAI,OAAO;AAAA,IACX,SAAS;AAAA,EACT;AACA,QAAM,KAAK;AACZ;AAEA,OAAO,IAAI,WAAW,UAAU;AAEhC,IAAI,QAAI,kBAAAC,SAAO,CAAC;AAChB,IAAI,QAAI,gBAAAC,SAAK,CAAC;AACd,IAAI,IAAI,OAAO,OAAO,CAAC;AACvB,IAAI,OAAO,KAAK;",
   "names": ["Koa", "Router", "logger", "json"]
 }
