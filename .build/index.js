@@ -21,6 +21,7 @@ var import_koa = __toESM(require("koa"));
 var import_koa_router = __toESM(require("koa-router"));
 var import_koa_logger = __toESM(require("koa-logger"));
 var import_koa_json = __toESM(require("koa-json"));
+var import_articles = require("./routes/articles");
 const app = new import_koa.default();
 const router = new import_koa_router.default();
 const welcomeAPI = async (ctx, next) => {
@@ -32,6 +33,7 @@ const welcomeAPI = async (ctx, next) => {
 router.get("/api/v1", welcomeAPI);
 app.use((0, import_koa_logger.default)());
 app.use((0, import_koa_json.default)());
+app.use(import_articles.router.routes());
 app.use(router.routes());
 app.listen(10888);
 //# sourceMappingURL=index.js.map
