@@ -34,12 +34,20 @@ const getAll = async (ctx: RouterContext, next: any) => {
 const getById = async (ctx: RouterContext, next: any) => {
   // Get the ID from the route parameters.
   let id = +ctx.params.id;
-  let articles = await model.getById(id)
+  let articles = await model.getById(id);
   // If it exists then return the article as JSON.
   // Otherwise return a 404 Not Found status code
+  /** 
   if ((id < articles.length + 1) && (id > 0)) {
     ctx.body = articles[id - 1];
   } else {
+    ctx.status = 404;
+  }
+  **/
+  if (articles.length) {
+    ctx.body = articles[0];
+  } else {
+    ctx.body = {}
     ctx.status = 404;
   }
   await next();
@@ -48,15 +56,26 @@ const getById = async (ctx: RouterContext, next: any) => {
 const createArticle = async (ctx: RouterContext, next: any) => {
   // The body parser gives us access to the request body on ctx.request.body.
   // Use this to extract the title and fullText we were sent.
-  let { title, fullText } = ctx.request.body;
+  //let { title, fullText } = ctx.request.body;
   let now = new Date();
   // In turn, define a new article for addition to the array.
-  let newArticle = { title: title, fullText: fullText, dateCreated: now };
-  articles.push(newArticle);
+  //let newArticle = { title: title, fullText: fullText, dateCreated: now };
+  // articles.push(newArticle);
   // Finally send back appropriate JSON and status code.
   // Once we move to a DB store, the newArticle sent back will now have its ID.
-  ctx.status = 201;
-  ctx.body = newArticle;
+  //ctx.status = 201;
+  //ctx.body = newArticle;
+
+
+  const body = ctx.request.body;
+  let result = await model.add(body);
+  if (result.status == 201) {
+    ctx.status = 201;
+    ctx.body = body;
+  } else {
+    ctx.status = 500;
+    ctx.body = { err: "insert data failed" };
+  }
   await next();
 }
 const updateArticle = async (ctx: RouterContext, next: any) => {

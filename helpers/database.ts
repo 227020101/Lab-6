@@ -14,7 +14,7 @@ export const run_query = async (query, values) => {
     return data;
   } catch (err: any) {
     console.error(err, query, values);
-    throw 'Database query error';
+    throw 'Database select query error';
   }
 }
 
@@ -31,6 +31,6 @@ export const run_insert = async function run_insert(sql: string, values: any) {
     return data;
   } catch (err: any) {
     console.error(err, query, values);
-    throw 'Database query error';
+    throw 'Database insert query error';
   }
 }
