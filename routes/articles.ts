@@ -4,13 +4,14 @@ import * as model from '../models/articles';
 
 // Temporarily define some random articles in an array.
 // Later this will come from the DB.
+/**
 const articles = [
-  { title: 'hello article', fullText: 'some text here to fill the body', dateModified:''},
-  { title: 'another article', fullText: 'again here is some text here to fill' , dateModified:''},
-  { title: 'coventry university ', fullText: 'some news about coventry university', dateModified:'' },
-  { title: 'smart campus', fullText: 'smart campus is coming to IVE' , dateModified:''}
+  { title: 'hello article', fullText: 'some text here to fill the body', dateModified: '' },
+  { title: 'another article', fullText: 'again here is some text here to fill', dateModified: '' },
+  { title: 'coventry university ', fullText: 'some news about coventry university', dateModified: '' },
+  { title: 'smart campus', fullText: 'smart campus is coming to IVE', dateModified: '' }
 ];
-
+**/
 
 // Since we are handling articles use a URI that begins with an appropriate path
 const router = new Router({ prefix: '/api/v1/articles' });
@@ -33,6 +34,7 @@ const getAll = async (ctx: RouterContext, next: any) => {
 const getById = async (ctx: RouterContext, next: any) => {
   // Get the ID from the route parameters.
   let id = +ctx.params.id;
+  let articles = await model.getById(id)
   // If it exists then return the article as JSON.
   // Otherwise return a 404 Not Found status code
   if ((id < articles.length + 1) && (id > 0)) {
@@ -85,7 +87,7 @@ const deleteArticle = async (ctx: RouterContext, next: any) => {
   let id = +ctx.params.id;
   // Finally send back appropriate JSON and status code.
   if ((id < articles.length + 1) && (id > 0)) {
-    articles.splice(id-1,1);
+    articles.splice(id - 1, 1);
 
   } else {
     ctx.status = 404;
@@ -104,7 +106,7 @@ const deleteArticle = async (ctx: RouterContext, next: any) => {
 router.get('/', getAll);
 router.post('/', bodyParser(), createArticle);
 router.get('/:id([0-9]{1,})', getById);
-router.put('/:id([0-9]{1,})', bodyParser(),updateArticle);
+router.put('/:id([0-9]{1,})', bodyParser(), updateArticle);
 router.del('/:id([0-9]{1,})', deleteArticle);
 // Finally, define the exported object when import from other scripts.
 export { router };
