@@ -21,7 +21,10 @@ var import_koa = __toESM(require("koa"));
 var import_koa_router = __toESM(require("koa-router"));
 var import_koa_logger = __toESM(require("koa-logger"));
 var import_koa_json = __toESM(require("koa-json"));
+var import_koa_passport = __toESM(require("koa-passport"));
 var import_articles = require("./routes/articles");
+var import_special = require("./routes/special");
+var import_koa_static_folder = __toESM(require("koa-static-folder"));
 const app = new import_koa.default();
 const router = new import_koa_router.default();
 const welcomeAPI = async (ctx, next) => {
@@ -31,10 +34,12 @@ const welcomeAPI = async (ctx, next) => {
   await next();
 };
 router.get("/api/v1", welcomeAPI);
+app.use((0, import_koa_static_folder.default)("./docs"));
 app.use((0, import_koa_logger.default)());
 app.use((0, import_koa_json.default)());
 app.use(import_articles.router.routes());
-app.use(router.routes());
+app.use(import_koa_passport.default.initialize());
+app.use(import_special.router.routes());
 app.use(async (ctx, next) => {
   try {
     await next();
